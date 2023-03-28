@@ -1,11 +1,11 @@
 require_relative 'piece'
 require_relative 'stepable'
 
-class Knight < Piece
+class King < Piece
     include Stepable
 
     def symbol
-        return :N
+        return :K
     end
 
 end

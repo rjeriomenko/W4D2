@@ -8,8 +8,4 @@ class Queen < Piece
         return :Q
     end
 
-    # def move_dirs # modulate behavior of move_dirs to modify usage of horizontal dirs and diagonal dirs
-
-    # end
-
 end

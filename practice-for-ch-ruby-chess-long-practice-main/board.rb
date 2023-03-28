@@ -1,5 +1,7 @@
 require_relative "./null_piece.rb"
 require_relative "queen.rb"
+require_relative "rook.rb"
+require_relative "bishop.rb"
 
 class Board
     def initialize
@@ -20,13 +22,13 @@ class Board
     def populate_pieces # incorporate Board#add_piece later
         (0..1).each do |pos_1|
             (0..7).each do |pos_2|
-                @rows[pos_1][pos_2] = Piece.new(:W, self, [pos_1, pos_2])
+                @rows[pos_1][pos_2] = Piece.new(:WHITE, self, [pos_1, pos_2])
             end
         end
 
         (6..7).each do |pos_1|
             (0..7).each do |pos_2|
-                @rows[pos_1][pos_2] = Piece.new(:B, self, [pos_1, pos_2])
+                @rows[pos_1][pos_2] = Piece.new(:BLACK, self, [pos_1, pos_2])
             end
         end
     end
@@ -63,8 +65,9 @@ class Board
         end
     end
 
-    def [](position) #public in UML. WHY?
+    def [](position)
         pos_1, pos_2 = position
+        return nil if pos_1 < 0 || pos_2 < 0
         @rows[pos_1][pos_2]
     end
 

@@ -54,7 +54,7 @@ module Slideable
             valid_positions << current_pos
 
             pos_1, pos_2 = current_pos
-            current_pos = [pos_1 + dy, pos_2 + dx] # need to dynamically update
+            current_pos = [pos_1 + dy, pos_2 + dx]
         end
         if invalid_pos_stay?(current_pos)
             valid_positions << current_pos
@@ -75,7 +75,7 @@ module Slideable
     def invalid_pos_stay?(pos)
         piece = @board[pos]
         return false if piece.nil?
-        return true if piece.color == ([:B, :W].reject{ |ele| ele == @color })[0]
+        return true if piece.color == ([:BLACK, :WHITE].reject{ |ele| ele == @color })[0]
         false
     end
 end
