@@ -1,6 +1,7 @@
 class Piece
     attr_reader :color
-    attr_writer :pos
+    attr_accessor :pos
+
     def initialize(color, board, pos)
         @color = color
         @board = board
@@ -9,5 +10,9 @@ class Piece
 
     def symbol
         return :P
+    end
+
+    def valid_moves # will call subclass.moves to generate list of possible moves
+        # basically the same thing as move
     end
 end

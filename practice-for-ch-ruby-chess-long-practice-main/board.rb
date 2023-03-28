@@ -1,4 +1,5 @@
 require_relative "./null_piece.rb"
+require_relative "queen.rb"
 
 class Board
     def initialize
@@ -30,6 +31,11 @@ class Board
         end
     end
 
+    def add_piece(piece, pos)
+        self[pos] = piece
+        piece.pos = pos
+    end
+
     def move_piece(start_pos, end_pos) #assuming start and end pos are valid
         if self[start_pos] == @null_piece
             raise RuntimeError.new "No piece at start position."
@@ -57,13 +63,14 @@ class Board
         end
     end
 
-
-    private
-
     def [](position) #public in UML. WHY?
         pos_1, pos_2 = position
         @rows[pos_1][pos_2]
     end
+
+
+    private
+
 
     def []=(position, piece) #public in UML. WHY?
         pos_1, pos_2 = position
