@@ -5,7 +5,7 @@ class NullPiece < Piece
     include Singleton
 
     def symbol
-        return " "
+        return nil
     end
 
     private

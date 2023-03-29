@@ -1,4 +1,4 @@
-# Chess (Part 2)
+<!-- <!-- # Chess (Part 2)
 
 **Make Sure To Finish Phases I & II Before Proceeding!**
 
@@ -35,12 +35,12 @@ terminal process (in case of `:ctrl_c`). Later we will use our `Player` and
 
 **N.B.:** To exit a terminal process, use the `Process.exit` method. Pass it the
 status code `0` as an argument. You can read more about `exit`
-[here][process-exit].
+[here][process-exit]. -->
 
-Fill in the `#update_pos(diff)` method. It should use the `diff` to reassign
+<!-- Fill in the `#update_pos(diff)` method. It should use the `diff` to reassign
 `@cursor_pos` to a new position. You may wish to write a `Board#valid_pos?`
 method to ensure you update `@cursor_pos` only when the new position is on the
-board.
+board. --> -->
 
 Render the square at the `@cursor_pos` display in a different color. Test that
 you can move your cursor around the board by creating and calling a method that
