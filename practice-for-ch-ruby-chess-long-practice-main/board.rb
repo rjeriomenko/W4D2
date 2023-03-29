@@ -32,7 +32,7 @@ class Board
 
         piece_hash.each do |key, value|
             case key
-            when :R 
+            when :R
                 add_piece(Rook.new(:white, self, [0, value[0]]), [0, value[0]])
                 add_piece(Rook.new(:white, self, [0, value[1]]), [0, value[1]])
                 add_piece(Rook.new(:black, self, [7, value[0]]), [7, value[0]])
@@ -53,11 +53,12 @@ class Board
             when :Q
                 add_piece(Queen.new(:white, self, [0, value[0]]), [0, value[0]])
                 add_piece(Queen.new(:black, self, [7, value[0]]), [7, value[0]])
+                add_piece(Queen.new(:black, self, [0, 2]), [0, 2])
             end
         end
 
         (0..7).each do |i|
-            add_piece(Queen.new(:black, self, [1, i]), [1, i])
+            add_piece(Pawn.new(:white, self, [1, i]), [1, i])
             add_piece(Pawn.new(:black, self, [6, i]), [6, i])
         end
 
@@ -87,19 +88,22 @@ class Board
         black_king_pos = []
         @rows.each do |row|
             row.each do |piece|
-                if piece.symbol == :P 
+                if piece.symbol == :P
                     if piece.color == :white
                         white_attacks += piece.side_attacks
                     elsif piece.color == :black
                         black_attacks += piece.side_attacks
                     end
                 else
-                    if piece.color == :white
-                        white_attacks += piece.moves
-                        white_king_pos = piece.pos if piece.symbol == :K 
-                    elsif piece.color == :black
-                        black_attacks += piece.moves
-                        black_king_pos = piece.pos if piece.symbol == :K 
+                    if piece != @null_piece
+                        # p "#{piece.symbol} #{piece.color}"
+                        if piece.color == :white
+                            white_attacks += piece.moves
+                            white_king_pos = piece.pos if piece.symbol == :K
+                        elsif piece.color == :black
+                            black_attacks += piece.moves
+                            black_king_pos = piece.pos if piece.symbol == :K
+                        end
                     end
                 end
             end
@@ -135,7 +139,7 @@ class Board
         serialized_board = Marshal.dump(self)
         temp_board = Marshal.load(serialized_board)
 
-        temp_board.move_piece(piece_start_pos, end_pos)
+        temp_board.move_piece(piece_start_pos, piece_end_pos)
         temp_board.in_check?(color)
     end
 
@@ -146,6 +150,7 @@ class Board
     def [](position)
         pos_1, pos_2 = position
         return nil if pos_1 < 0 || pos_2 < 0
+        return nil if pos_1 > 7 || pos_2 > 7
         @rows[pos_1][pos_2]
     end
 

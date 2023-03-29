@@ -7,7 +7,14 @@ puts "--------------------------------"
 board = Board.new
 # board.board_print
 display = Display.new(board)
+# r = Rook.new(:black, board, [])
+# board.add_piece(r,[7,0])
+# p r.moves
+
 display.render
+# p board
+p board.in_check?(:white)
+p board.in_check?(:black)
 p board.checkmate?(:white)
 p board.checkmate?(:black)
 # display.cursor.get_input
@@ -33,4 +40,3 @@ puts "--------------------------------"
 # p new_board.object_id
 # p new_board.rows.object_id
 # p new_board[[1,2]].object_id
-
