@@ -6,39 +6,8 @@ class Pawn < Piece
         return :P
     end
 
-    def move_diffs
-        white_diffs = [
-            [1,0],
-            [2,0],
-            [1,-1],
-            [1,1]
-        ]
-        black_diffs = [
-            [-1,0],
-            [-2,0],
-            [-1,-1],
-            [-1,1]
-        ]
-        diffs = white_diffs if @color == :white
-        diffs = black_diffs if @color == :black
-
-    end
-
     def moves
-        possible_positions = move_diffs.map do |diff|
-            diff_1, diff_2 = diff
-            start_1, start_2 = pos
-            [start_1 + diff_1, start_2 + diff_2]
-        end
-        possible_positions.select do |position|
-            pos_1, pos_2 = position
-            piece = board[position]
-            if piece
-                if [-1,1].include?()
-            else
-                false
-            end
-        end
+        forward_steps
     end
 
     def forward_dir
@@ -47,8 +16,22 @@ class Pawn < Piece
     end
 
     def forward_steps
-        steps = [[1*forward_dir,0]]
-        steps << [2*forward_dir,0] if at_start_row?
+        steps = []
+        start_1, start_2 = pos
+        piece = @board[[start_1 + forward_dir, start_2]]
+        
+        if piece
+            if piece.color == nil
+                steps << [start_1 + forward_dir, start_2]
+                piece = @board[[start_1 + 2 * forward_dir, start_2]]
+                if piece
+                    if piece.color == nil && at_start_row?
+                        steps << [start_1 + 2 * forward_dir, start_2]
+                    end
+                end
+            end
+        end
+        
         steps += side_attacks
     end
 
