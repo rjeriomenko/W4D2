@@ -75,7 +75,7 @@ module Slideable
     def invalid_pos_stay?(pos)
         piece = @board[pos]
         return false if piece.nil?
-        return true if piece.color == ([:BLACK, :WHITE].reject{ |ele| ele == @color })[0]
+        return true if piece.color == ([:black, :white].reject{ |ele| ele == @color })[0]
         false
     end
 end
