@@ -101,6 +101,5 @@ class Cursor
   def update_pos(diff)
     start_1, start_2 = cursor_pos
     @cursor_pos = [(start_1 + diff[0]) % 8, (start_2 + diff[1]) % 8]
-    p @cursor_position
   end
 end

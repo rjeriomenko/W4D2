@@ -80,19 +80,32 @@ class Board
         self[start_pos] = @null_piece
     end
 
-
-
-    # render
-    def board_print
+    def in_check?(color)
+        white_attacks = []
+        black_attacks = []
+        white_king_pos = []
+        black_king_pos = []
         @rows.each do |row|
-            row.each_with_index do |piece, i|
-                unless i == row.length - 1
-                    print "#{piece.symbol} "
+            row.each do |piece|
+                if piece.symbol == :P 
+                    if piece.color == :white
+                        white_attacks += piece.side_attacks
+                    elsif piece.color == :black
+                        black_attacks += piece.side_attacks
+                    end
                 else
-                    print "#{piece.symbol}\n"
+                    if piece.color == :white
+                        white_attacks += piece.moves
+                        white_king_pos = piece.pos if piece.symbol == :K 
+                    elsif piece.color == :black
+                        black_attacks += piece.moves
+                        black_king_pos = piece.pos if piece.symbol == :K 
+                    end
                 end
             end
         end
+        return white_attacks.include?(black_king_pos) if color == :black
+        return black_attacks.include?(white_king_pos) if color == :white
     end
 
     def [](position)

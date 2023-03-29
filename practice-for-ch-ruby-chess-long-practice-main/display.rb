@@ -19,7 +19,7 @@ class Display
             
                 unless pos_2 == 7
                     color = piece.color
-                    color = :yellow if @cursor.cursor_pos == pos
+                    color = :red if @cursor.cursor_pos == pos
                     if piece.symbol
                         print "#{piece.symbol} ".colorize(color)
                     elsif @cursor.cursor_pos == pos
@@ -29,8 +29,14 @@ class Display
                     end
                 else
                     color = piece.color
-                    color = :yellow if @cursor.cursor_pos == pos
-                    print "#{piece.symbol}\n".colorize(color)
+                    color = :red if @cursor.cursor_pos == pos
+                    if piece.symbol
+                        print "#{piece.symbol}\n".colorize(color)
+                    elsif @cursor.cursor_pos == pos
+                        print "◈\n".colorize(color)
+                    else
+                        print " \n".colorize(color)
+                    end
                 end
             end
         end
