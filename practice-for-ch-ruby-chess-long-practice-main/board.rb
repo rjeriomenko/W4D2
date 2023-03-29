@@ -57,7 +57,7 @@ class Board
         end
 
         (0..7).each do |i|
-            add_piece(Pawn.new(:white, self, [1, i]), [1, i])
+            add_piece(Queen.new(:black, self, [1, i]), [1, i])
             add_piece(Pawn.new(:black, self, [6, i]), [6, i])
         end
 
@@ -107,6 +107,41 @@ class Board
         return white_attacks.include?(black_king_pos) if color == :black
         return black_attacks.include?(white_king_pos) if color == :white
     end
+
+    def checkmate?(color)
+        return false unless in_check?(color)
+
+        (0..7).each do |board_1|
+            (0..7).each do |board_2|
+                piece = self[[board_1, board_2]]
+
+                if piece.color == color
+                    possible_moves = piece.moves
+                    #---check board_state when piece has moved---
+                    still_in_check_after_all_moves = possible_moves.all? do |piece_end_pos|
+                        in_check_after_move?(piece, piece_end_pos, color)
+                    end
+                    return false unless still_in_check_after_all_moves
+                end
+            end
+        end
+
+        true
+    end
+
+    def in_check_after_move?(piece, piece_end_pos, color)
+        piece_start_pos = piece.pos
+
+        serialized_board = Marshal.dump(self)
+        temp_board = Marshal.load(serialized_board)
+
+        temp_board.move_piece(piece_start_pos, end_pos)
+        temp_board.in_check?(color)
+    end
+
+
+
+
 
     def [](position)
         pos_1, pos_2 = position

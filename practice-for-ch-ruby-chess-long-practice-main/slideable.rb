@@ -3,8 +3,7 @@ module Slideable
     DIAGONAL_DIRS = [:up_right, :down_right, :down_left, :up_left]
 
     def moves # should return an array of end_pos
-        moveable_directions = move_dirs
-
+        move_dirs
     end
 
     def move_dirs
