@@ -53,7 +53,6 @@ class Board
             when :Q
                 add_piece(Queen.new(:white, self, [0, value[0]]), [0, value[0]])
                 add_piece(Queen.new(:black, self, [7, value[0]]), [7, value[0]])
-                add_piece(Queen.new(:black, self, [0, 2]), [0, 2])
             end
         end
 
@@ -143,10 +142,6 @@ class Board
         temp_board.in_check?(color)
     end
 
-
-
-
-
     def [](position)
         pos_1, pos_2 = position
         return nil if pos_1 < 0 || pos_2 < 0
@@ -156,7 +151,6 @@ class Board
 
 
     private
-
 
     def []=(position, piece) #public in UML. WHY?
         pos_1, pos_2 = position

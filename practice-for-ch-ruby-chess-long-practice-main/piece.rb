@@ -12,7 +12,11 @@ class Piece
         return :P
     end
 
-    def valid_moves # will call subclass.moves to generate list of possible moves
-        # basically the same thing as move
+    def move_into_check?(end_pos)
+        serialized_board = Marshal.dump(@board)
+        temp_board = Marshal.load(serialized_board)
+        
+        temp_board.move_piece(@pos, end_pos)
+        temp_board.in_check?(@color)
     end
 end
